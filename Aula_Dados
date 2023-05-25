@@ -1,0 +1,1902 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNV6OOfc7tqer42Db8J3L1J",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/lucasmoro771/Projetos/blob/main/Aula_Dados\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 35,
+      "metadata": {
+        "id": "iwd9yFub76Hk"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import seaborn as sns\n",
+        "import matplotlib as plt"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "dic = {\"coluna1\":[\"linha1\",\"linha2\",\"linha3\"],\"coluna2\":[\"linha1\",\"linha2\",\"linha3\"]}"
+      ],
+      "metadata": {
+        "id": "b2sf-fhA9WFE"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "tabela = pd.DataFrame(dic)"
+      ],
+      "metadata": {
+        "id": "FtsL67Im9axX"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "tabela.head()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 143
+        },
+        "id": "NzMgzx8w-SBL",
+        "outputId": "6d25db8e-7692-4c4d-e79d-cdb53ddde34d"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "  coluna1 coluna2\n",
+              "0  linha1  linha1\n",
+              "1  linha2  linha2\n",
+              "2  linha3  linha3"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-304facc5-449d-4730-bac5-01574993a469\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>coluna1</th>\n",
+              "      <th>coluna2</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>linha1</td>\n",
+              "      <td>linha1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>linha2</td>\n",
+              "      <td>linha2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>linha3</td>\n",
+              "      <td>linha3</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-304facc5-449d-4730-bac5-01574993a469')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-304facc5-449d-4730-bac5-01574993a469 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-304facc5-449d-4730-bac5-01574993a469');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#impotar a nossa base de dados(df = dataframe)\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv\")"
+      ],
+      "metadata": {
+        "id": "xN46CEHk-Ygs"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.head()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "id": "RMNu4DhP-7E-",
+        "outputId": "13865446-e38b-4234-9ee9-80d7d3c1dbc7"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       country  beer_servings  spirit_servings  wine_servings  \\\n",
+              "0  Afghanistan              0                0              0   \n",
+              "1      Albania             89              132             54   \n",
+              "2      Algeria             25                0             14   \n",
+              "3      Andorra            245              138            312   \n",
+              "4       Angola            217               57             45   \n",
+              "\n",
+              "   total_litres_of_pure_alcohol  \n",
+              "0                           0.0  \n",
+              "1                           4.9  \n",
+              "2                           0.7  \n",
+              "3                          12.4  \n",
+              "4                           5.9  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-4b0588fd-8c88-46aa-b1a9-621a16220d94\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>country</th>\n",
+              "      <th>beer_servings</th>\n",
+              "      <th>spirit_servings</th>\n",
+              "      <th>wine_servings</th>\n",
+              "      <th>total_litres_of_pure_alcohol</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Afghanistan</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Albania</td>\n",
+              "      <td>89</td>\n",
+              "      <td>132</td>\n",
+              "      <td>54</td>\n",
+              "      <td>4.9</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Algeria</td>\n",
+              "      <td>25</td>\n",
+              "      <td>0</td>\n",
+              "      <td>14</td>\n",
+              "      <td>0.7</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Andorra</td>\n",
+              "      <td>245</td>\n",
+              "      <td>138</td>\n",
+              "      <td>312</td>\n",
+              "      <td>12.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Angola</td>\n",
+              "      <td>217</td>\n",
+              "      <td>57</td>\n",
+              "      <td>45</td>\n",
+              "      <td>5.9</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-4b0588fd-8c88-46aa-b1a9-621a16220d94')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-4b0588fd-8c88-46aa-b1a9-621a16220d94 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-4b0588fd-8c88-46aa-b1a9-621a16220d94');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.head(10)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 363
+        },
+        "id": "aOSsBG-L_QFd",
+        "outputId": "d2dc7b8a-f7df-480c-846e-dbb8468e6e1d"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "             country  beer_servings  spirit_servings  wine_servings  \\\n",
+              "0        Afghanistan              0                0              0   \n",
+              "1            Albania             89              132             54   \n",
+              "2            Algeria             25                0             14   \n",
+              "3            Andorra            245              138            312   \n",
+              "4             Angola            217               57             45   \n",
+              "5  Antigua & Barbuda            102              128             45   \n",
+              "6          Argentina            193               25            221   \n",
+              "7            Armenia             21              179             11   \n",
+              "8          Australia            261               72            212   \n",
+              "9            Austria            279               75            191   \n",
+              "\n",
+              "   total_litres_of_pure_alcohol  \n",
+              "0                           0.0  \n",
+              "1                           4.9  \n",
+              "2                           0.7  \n",
+              "3                          12.4  \n",
+              "4                           5.9  \n",
+              "5                           4.9  \n",
+              "6                           8.3  \n",
+              "7                           3.8  \n",
+              "8                          10.4  \n",
+              "9                           9.7  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-2a405302-ed96-4449-8fff-85dd87edc4f1\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>country</th>\n",
+              "      <th>beer_servings</th>\n",
+              "      <th>spirit_servings</th>\n",
+              "      <th>wine_servings</th>\n",
+              "      <th>total_litres_of_pure_alcohol</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Afghanistan</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Albania</td>\n",
+              "      <td>89</td>\n",
+              "      <td>132</td>\n",
+              "      <td>54</td>\n",
+              "      <td>4.9</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Algeria</td>\n",
+              "      <td>25</td>\n",
+              "      <td>0</td>\n",
+              "      <td>14</td>\n",
+              "      <td>0.7</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Andorra</td>\n",
+              "      <td>245</td>\n",
+              "      <td>138</td>\n",
+              "      <td>312</td>\n",
+              "      <td>12.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Angola</td>\n",
+              "      <td>217</td>\n",
+              "      <td>57</td>\n",
+              "      <td>45</td>\n",
+              "      <td>5.9</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>Antigua &amp; Barbuda</td>\n",
+              "      <td>102</td>\n",
+              "      <td>128</td>\n",
+              "      <td>45</td>\n",
+              "      <td>4.9</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>Argentina</td>\n",
+              "      <td>193</td>\n",
+              "      <td>25</td>\n",
+              "      <td>221</td>\n",
+              "      <td>8.3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>Armenia</td>\n",
+              "      <td>21</td>\n",
+              "      <td>179</td>\n",
+              "      <td>11</td>\n",
+              "      <td>3.8</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>Australia</td>\n",
+              "      <td>261</td>\n",
+              "      <td>72</td>\n",
+              "      <td>212</td>\n",
+              "      <td>10.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>Austria</td>\n",
+              "      <td>279</td>\n",
+              "      <td>75</td>\n",
+              "      <td>191</td>\n",
+              "      <td>9.7</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-2a405302-ed96-4449-8fff-85dd87edc4f1')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-2a405302-ed96-4449-8fff-85dd87edc4f1 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-2a405302-ed96-4449-8fff-85dd87edc4f1');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.shape\n",
+        "#números de linhas"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "fczjjdD2_2Ln",
+        "outputId": "89261984-ef67-4a99-e3f2-b7d31f7ef041"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(193, 5)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.info\n",
+        "#primeiras e ultimas linhas"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wW0JQNUj_50K",
+        "outputId": "a12d8237-20c6-4db9-a232-319d8cd2b97d"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<bound method DataFrame.info of          country  beer_servings  spirit_servings  wine_servings  \\\n",
+              "0    Afghanistan              0                0              0   \n",
+              "1        Albania             89              132             54   \n",
+              "2        Algeria             25                0             14   \n",
+              "3        Andorra            245              138            312   \n",
+              "4         Angola            217               57             45   \n",
+              "..           ...            ...              ...            ...   \n",
+              "188    Venezuela            333              100              3   \n",
+              "189      Vietnam            111                2              1   \n",
+              "190        Yemen              6                0              0   \n",
+              "191       Zambia             32               19              4   \n",
+              "192     Zimbabwe             64               18              4   \n",
+              "\n",
+              "     total_litres_of_pure_alcohol  \n",
+              "0                             0.0  \n",
+              "1                             4.9  \n",
+              "2                             0.7  \n",
+              "3                            12.4  \n",
+              "4                             5.9  \n",
+              "..                            ...  \n",
+              "188                           7.7  \n",
+              "189                           2.0  \n",
+              "190                           0.1  \n",
+              "191                           2.5  \n",
+              "192                           4.7  \n",
+              "\n",
+              "[193 rows x 5 columns]>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.describe()\n",
+        "#resumo tabela"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 300
+        },
+        "id": "4VMQFiGvAKwd",
+        "outputId": "3cbf71ad-bf28-4373-b958-8e36631e11db"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       beer_servings  spirit_servings  wine_servings  \\\n",
+              "count     193.000000       193.000000     193.000000   \n",
+              "mean      106.160622        80.994819      49.450777   \n",
+              "std       101.143103        88.284312      79.697598   \n",
+              "min         0.000000         0.000000       0.000000   \n",
+              "25%        20.000000         4.000000       1.000000   \n",
+              "50%        76.000000        56.000000       8.000000   \n",
+              "75%       188.000000       128.000000      59.000000   \n",
+              "max       376.000000       438.000000     370.000000   \n",
+              "\n",
+              "       total_litres_of_pure_alcohol  \n",
+              "count                    193.000000  \n",
+              "mean                       4.717098  \n",
+              "std                        3.773298  \n",
+              "min                        0.000000  \n",
+              "25%                        1.300000  \n",
+              "50%                        4.200000  \n",
+              "75%                        7.200000  \n",
+              "max                       14.400000  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-bfeb10cb-a14e-4f60-96ea-1b9fe3ecd8e0\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>beer_servings</th>\n",
+              "      <th>spirit_servings</th>\n",
+              "      <th>wine_servings</th>\n",
+              "      <th>total_litres_of_pure_alcohol</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>193.000000</td>\n",
+              "      <td>193.000000</td>\n",
+              "      <td>193.000000</td>\n",
+              "      <td>193.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>106.160622</td>\n",
+              "      <td>80.994819</td>\n",
+              "      <td>49.450777</td>\n",
+              "      <td>4.717098</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>101.143103</td>\n",
+              "      <td>88.284312</td>\n",
+              "      <td>79.697598</td>\n",
+              "      <td>3.773298</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "      <td>0.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>20.000000</td>\n",
+              "      <td>4.000000</td>\n",
+              "      <td>1.000000</td>\n",
+              "      <td>1.300000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>76.000000</td>\n",
+              "      <td>56.000000</td>\n",
+              "      <td>8.000000</td>\n",
+              "      <td>4.200000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>188.000000</td>\n",
+              "      <td>128.000000</td>\n",
+              "      <td>59.000000</td>\n",
+              "      <td>7.200000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>376.000000</td>\n",
+              "      <td>438.000000</td>\n",
+              "      <td>370.000000</td>\n",
+              "      <td>14.400000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-bfeb10cb-a14e-4f60-96ea-1b9fe3ecd8e0')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-bfeb10cb-a14e-4f60-96ea-1b9fe3ecd8e0 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-bfeb10cb-a14e-4f60-96ea-1b9fe3ecd8e0');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.isnull().sum()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5JH_R5MSAgay",
+        "outputId": "b1ab4576-5ce3-459c-8124-849e05401e7e"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "country                         0\n",
+              "beer_servings                   0\n",
+              "spirit_servings                 0\n",
+              "wine_servings                   0\n",
+              "total_litres_of_pure_alcohol    0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 12
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.isnull().sum() / len(df) *100"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "t0xeXR5IBSF0",
+        "outputId": "8202e3d5-b6e4-4415-9dd7-44485a22ceae"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "country                         0.0\n",
+              "beer_servings                   0.0\n",
+              "spirit_servings                 0.0\n",
+              "wine_servings                   0.0\n",
+              "total_litres_of_pure_alcohol    0.0\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 13
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df[\"country\"]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "uLJhJR7RBd60",
+        "outputId": "f225eace-62e3-4c31-ce56-c9876176b819"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0      Afghanistan\n",
+              "1          Albania\n",
+              "2          Algeria\n",
+              "3          Andorra\n",
+              "4           Angola\n",
+              "          ...     \n",
+              "188      Venezuela\n",
+              "189        Vietnam\n",
+              "190          Yemen\n",
+              "191         Zambia\n",
+              "192       Zimbabwe\n",
+              "Name: country, Length: 193, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 15
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df[\"country\"][:10]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "eg3GNHhGBlYm",
+        "outputId": "238357e2-1f7b-4f41-e7d0-956f19b8a59a"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0          Afghanistan\n",
+              "1              Albania\n",
+              "2              Algeria\n",
+              "3              Andorra\n",
+              "4               Angola\n",
+              "5    Antigua & Barbuda\n",
+              "6            Argentina\n",
+              "7              Armenia\n",
+              "8            Australia\n",
+              "9              Austria\n",
+              "Name: country, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#contar quanto se consome de cerveja no mundo\n",
+        "df[\"beer_servings\"].value_counts()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yfRkrVMdCb9M",
+        "outputId": "0aab9f31-bd3e-44a9-f0b7-50842879ac61"
+      },
+      "execution_count": 19,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0      15\n",
+              "5       5\n",
+              "25      4\n",
+              "21      4\n",
+              "31      4\n",
+              "       ..\n",
+              "234     1\n",
+              "69      1\n",
+              "28      1\n",
+              "142     1\n",
+              "64      1\n",
+              "Name: beer_servings, Length: 130, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 19
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#contar consumo de destilados\n",
+        "df[\"spirit_servings\"].value_counts()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AnsWbhAzC8cX",
+        "outputId": "c66f46e9-bdad-49c2-84d0-af6693e4d5a9"
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0      23\n",
+              "1       9\n",
+              "3       8\n",
+              "2       7\n",
+              "100     4\n",
+              "       ..\n",
+              "147     1\n",
+              "286     1\n",
+              "44      1\n",
+              "81      1\n",
+              "19      1\n",
+              "Name: spirit_servings, Length: 109, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 21
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#contar consumo de vinho\n",
+        "df[\"wine_servings\"].value_counts()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3oH73T3lDOe_",
+        "outputId": "6a706172-1db9-459c-e169-7ec3c6b355db"
+      },
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0      31\n",
+              "1      25\n",
+              "2       9\n",
+              "7       9\n",
+              "8       7\n",
+              "       ..\n",
+              "78      1\n",
+              "165     1\n",
+              "237     1\n",
+              "12      1\n",
+              "220     1\n",
+              "Name: wine_servings, Length: 79, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 22
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#total de bebidas alcoolicas consumidas\n",
+        "df[\"total_litres_of_pure_alcohol\"].value_counts()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VjPiFHY4Dd2k",
+        "outputId": "061d3402-0620-4cfa-83d7-dc5e01952107"
+      },
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0.0     13\n",
+              "0.1      7\n",
+              "2.2      6\n",
+              "6.3      5\n",
+              "4.9      4\n",
+              "        ..\n",
+              "12.9     1\n",
+              "0.8      1\n",
+              "5.5      1\n",
+              "9.3      1\n",
+              "8.7      1\n",
+              "Name: total_litres_of_pure_alcohol, Length: 90, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 23
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#arrumar dados em ordem crescente\n",
+        "df[\"total_litres_of_pure_alcohol\"].value_counts().sort_values()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YZroTIARD0Av",
+        "outputId": "61126756-81ce-40df-dd97-4f5ffd39edd2"
+      },
+      "execution_count": 24,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "8.7      1\n",
+              "10.6     1\n",
+              "4.1      1\n",
+              "6.9      1\n",
+              "10.1     1\n",
+              "        ..\n",
+              "1.3      4\n",
+              "6.3      5\n",
+              "2.2      6\n",
+              "0.1      7\n",
+              "0.0     13\n",
+              "Name: total_litres_of_pure_alcohol, Length: 90, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 24
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#quanto o Brasil consome de alcool?\n",
+        "brasil = df[df[\"country\"] == \"Brazil\"]"
+      ],
+      "metadata": {
+        "id": "LrpUbj30EKSz"
+      },
+      "execution_count": 25,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "brasil.head()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 81
+        },
+        "id": "EbjE7biaEf4D",
+        "outputId": "77c39f6b-188e-4f8a-888b-ad5867f605f1"
+      },
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   country  beer_servings  spirit_servings  wine_servings  \\\n",
+              "23  Brazil            245              145             16   \n",
+              "\n",
+              "    total_litres_of_pure_alcohol  \n",
+              "23                           7.2  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-a834c1d3-149e-45a3-bd03-a62e1d7d59e9\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>country</th>\n",
+              "      <th>beer_servings</th>\n",
+              "      <th>spirit_servings</th>\n",
+              "      <th>wine_servings</th>\n",
+              "      <th>total_litres_of_pure_alcohol</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>23</th>\n",
+              "      <td>Brazil</td>\n",
+              "      <td>245</td>\n",
+              "      <td>145</td>\n",
+              "      <td>16</td>\n",
+              "      <td>7.2</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-a834c1d3-149e-45a3-bd03-a62e1d7d59e9')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-a834c1d3-149e-45a3-bd03-a62e1d7d59e9 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-a834c1d3-149e-45a3-bd03-a62e1d7d59e9');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 26
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#plotando um gráfico\n",
+        "sns.countplot(df[\"total_litres_of_pure_alcohol\"])\n",
+        "plt.ylabel(\"Consumo total de álcool por país\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 447
+        },
+        "id": "sBKlmTmpFDnb",
+        "outputId": "04534cce-dfca-499d-fb3f-ae150dd19e1a"
+      },
+      "execution_count": 37,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Text(0, 0.5, 'Consumo total de álcool por país')"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 37
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 640x480 with 1 Axes>"
+            ],
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAjwAAAGdCAYAAAAWp6lMAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAxLUlEQVR4nO3df1QU9eL/8dcigj9ZRAOkUBA1LZWIEsn8lfiz9Jp2U7OkMiuvPwpMjU/5q+4N0zIrTW/3lsW9lmWZld0sfyVWaIqpWepJI7EENQlWMVeF/f7Rt73tRQtmZ12Yno9z5hznPbOzr/UfXmfmPTM2l8vlEgAAgIUF+DsAAACAr1F4AACA5VF4AACA5VF4AACA5VF4AACA5VF4AACA5VF4AACA5VF4AACA5QX6O0B1UF5erkOHDqlhw4ay2Wz+jgMAACrB5XLp+PHjioqKUkDAb5/DofBIOnTokKKjo/0dAwAAGHDw4EFdcsklv7mPXwtPZmamli9frj179qhu3bq65ppr9Pjjj+vSSy9173Pq1ClNnDhRS5culdPpVJ8+ffTcc88pIiLCvU9+fr7GjBmj9evXq0GDBkpNTVVmZqYCAyv38xo2bCjp5/+wkJAQc38kAADwCYfDoejoaPff8d/i18KzYcMGjR07VldffbXOnj2r//u//1Pv3r311VdfqX79+pKktLQ0vffee1q2bJnsdrvGjRunwYMH65NPPpEklZWV6frrr1dkZKQ+/fRTFRQUaOTIkapdu7Yee+yxSuX45TJWSEgIhQcAgBqmMtNRbNXp5aFHjx5VeHi4NmzYoK5du6qkpEQXXXSRXnnlFd10002SpD179qht27bKyclRp06d9P777+uGG27QoUOH3Gd9Fi1apClTpujo0aMKCgr63e91OByy2+0qKSmh8AAAUENU5e93tbpLq6SkRJIUFhYmScrNzdWZM2eUkpLi3qdNmzZq1qyZcnJyJEk5OTlq3769xyWuPn36yOFw6Msvvzzn9zidTjkcDo8FAABYV7UpPOXl5br//vvVuXNntWvXTpJUWFiooKAghYaGeuwbERGhwsJC9z6/Lju/bP9l27lkZmbKbre7FyYsAwBgbdWm8IwdO1a7du3S0qVLff5dGRkZKikpcS8HDx70+XcCAAD/qRa3pY8bN04rV65Udna2x21lkZGROn36tIqLiz3O8hw+fFiRkZHufT777DOP4x0+fNi97VyCg4MVHBxs8q8AAADVlV/P8LhcLo0bN05vvfWW1q1bp9jYWI/tiYmJql27ttauXese27t3r/Lz85WcnCxJSk5O1hdffKEjR46491m9erVCQkJ02WWXXZgfAgAAqjW/nuEZO3asXnnlFb399ttq2LChe86N3W5X3bp1ZbfbNWrUKKWnpyssLEwhISEaP368kpOT1alTJ0lS7969ddlll+m2227T7NmzVVhYqIcfflhjx47lLA4AAJDk59vSz3ff/OLFi3X77bdL+u+DB1999VWPBw/++nLVgQMHNGbMGH300UeqX7++UlNTNWvWrEo/eJDb0gEAqHmq8ve7Wj2Hx18oPAAA1Dw19jk8AAAAvkDhAQAAlkfhAQAAlkfhAQAAlkfhAQAAllctnrQM8yROyvJ3BABADZE7Z6S/I1wwnOEBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACWR+EBAACW5/fCk52drQEDBigqKko2m00rVqzw2G6z2c65zJkzx71PTExMhe2zZs26wL8EAABUV34vPKWlpYqPj9eCBQvOub2goMBjefHFF2Wz2TRkyBCP/R555BGP/caPH38h4gMAgBog0N8B+vXrp379+p13e2RkpMf622+/rR49eqhFixYe4w0bNqyw7/k4nU45nU73usPhqEJiAABQ0/j9DE9VHD58WO+9955GjRpVYdusWbPUuHFjJSQkaM6cOTp79ux5j5OZmSm73e5eoqOjfRkbAAD4md/P8FTFyy+/rIYNG2rw4MEe4xMmTNCVV16psLAwffrpp8rIyFBBQYHmzp17zuNkZGQoPT3dve5wOCg9AABYWI0qPC+++KJGjBihOnXqeIz/urx06NBBQUFBuueee5SZmang4OAKxwkODj7nOAAAsKYac0lr48aN2rt3r+66667f3TcpKUlnz57Vt99+6/tgAACg2qsxheeFF15QYmKi4uPjf3ff7du3KyAgQOHh4RcgGQAA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hgMAADCDocKTlZWloUOHqlevXurVq5d7/PTp01q6dKlGjhxpWkAAAABv8bZ0AABgebwtHQAAWF6VCk9CQoKuvPJK99vSr7zySvcSHx+vLl26mD6PJyYmxv2G9l8vY8eOlSR17969wrZ7773X1AwAAKBmq/ZvS9+yZYvKysrc67t27VKvXr305z//2T02evRoPfLII+71evXqmZoBAADUbNX+ben/+16uWbNmKS4uTt26dXOP1atXT5GRkZU+ptPplNPpdK87HA7vgwIAgGrL0Bye1NTUC1J2/tfp06f173//W3feeafHHKIlS5aoSZMmateunTIyMnTy5MnfPE5mZqbsdrt7iY6O9nV0AADgR4ZuS/eXFStWqLi4WLfffrt77JZbblHz5s0VFRWlnTt3asqUKdq7d6+WL19+3uNkZGQoPT3dve5wOCg9AABYWI0qPC+88IL69eunqKgo99jdd9/t/nf79u3VtGlT9ezZU/v371dcXNw5jxMcHKzg4GCf5wUAANWDoUta/nDgwAGtWbNGd91112/ul5SUJEnat2/fhYgFAABqAK8Lj8vlksvlMiPLb1q8eLHCw8N1/fXX/+Z+27dvlyQ1bdrU55kAAEDNYLjwZGVlqX379qpbt67q1q2rDh066F//+peZ2dzKy8u1ePFipaamKjDwv1fh9u/fr0cffVS5ubn69ttv9c4772jkyJHq2rWrOnTo4JMsAACg5jE0h2fu3LmaOnWqxo0bp86dO0uSPv74Y91777364YcflJaWZmrINWvWKD8/X3feeafHeFBQkNasWaN58+aptLRU0dHRGjJkiB5++GFTvx8AANRsNpeB61GxsbGaOXNmhZeEvvzyy5oxY4by8vJMC3ghOBwO2e12lZSUKCQkxN9xvJI4KcvfEQAANUTunJr9su+q/P02dEmroKBA11xzTYXxa665RgUFBUYOCQAA4DOGCk/Lli31+uuvVxh/7bXX1KpVK69DAQAAmMnQHJ6ZM2dq6NChys7Ods/h+eSTT7R27dpzFiEAAAB/MnSGZ8iQIdq8ebOaNGmiFStWaMWKFWrSpIk+++wz3XjjjWZnBAAA8IrhJy0nJibq3//+t5lZAAAAfMKrV0scOXJER44cUXl5ucc4z8ABAADViaHCk5ubq9TUVO3evbvCU5ZtNpvKyspMCQcAAGAGQ4XnzjvvVOvWrfXCCy8oIiJCNpvN7FwAAACmMVR4vvnmG7355ptq2bKl2XkAAABMZ+gurZ49e2rHjh1mZwEAAPAJQ2d4/vnPfyo1NVW7du1Su3btVLt2bY/tAwcONCUcAACAGQwVnpycHH3yySd6//33K2xj0jIAAKhuDF3SGj9+vG699VYVFBSovLzcY6HsAACA6sZQ4Tl27JjS0tIUERFhdh4AAADTGSo8gwcP1vr1683OAgAA4BOG5vC0bt1aGRkZ+vjjj9W+ffsKk5YnTJhgSjgAAAAzGL5Lq0GDBtqwYYM2bNjgsc1ms1F4AABAtWKo8OTl5ZmdAwAAwGcMzeEBAACoSQy/S+u3vPjii4bCAAAA+IKhwvPjjz96rJ85c0a7du1ScXGxrrvuOlOCAQAAmMVQ4XnrrbcqjJWXl2vMmDGKi4vzOhQAAICZTJvDExAQoPT0dD311FNmHRIAAMAUpk5a3r9/v86ePWvmIQEAALxm6JJWenq6x7rL5VJBQYHee+89paammhIMAADALIYKz+eff+6xHhAQoIsuukhPPvnk797BBQAAcKEZKjy8RwsAANQkhubw/PTTTzp58qR7/cCBA5o3b54+/PBD04IBAACYxVDh+dOf/qSsrCxJUnFxsTp27Kgnn3xSf/rTn7Rw4UJTAwIAAHjLUOHZtm2bunTpIkl64403FBkZqQMHDigrK0vPPPOMqQEBAAC8ZajwnDx5Ug0bNpQkffjhhxo8eLACAgLUqVMnHThwwNSAAAAA3jJUeFq2bKkVK1bo4MGD+uCDD9S7d29J0pEjRxQSEmJqQAAAAG8ZKjzTpk3TAw88oJiYGCUlJSk5OVnSz2d7EhISTA0IAADgLUO3pd9000269tprVVBQoPj4ePd4z549deONN5oWDgAAwAyGCo8kRUZGKjIy0mOsY8eOXgcCAAAwm6FLWqWlpZo6daquueYatWzZUi1atPBYzDRjxgzZbDaPpU2bNu7tp06d0tixY9W4cWM1aNBAQ4YM0eHDh03NAAAAajZDZ3juuusubdiwQbfddpuaNm0qm81mdi4Pl19+udasWeNeDwz8b+y0tDS99957WrZsmex2u8aNG6fBgwfrk08+8WkmAABQcxgqPO+//77ee+89de7c2ew85xQYGFjh8pkklZSU6IUXXtArr7yi6667TpK0ePFitW3bVps2bVKnTp3OeTyn0ymn0+ledzgcvgkOAACqBUOXtBo1aqSwsDCzs5zX119/raioKLVo0UIjRoxQfn6+JCk3N1dnzpxRSkqKe982bdqoWbNmysnJOe/xMjMzZbfb3Ut0dLTPfwMAAPAfQ4Xn0Ucf1bRp0zzep+UrSUlJeumll7Rq1SotXLhQeXl56tKli44fP67CwkIFBQUpNDTU4zMREREqLCw87zEzMjJUUlLiXg4ePOjjXwEAAPzJ0CWtJ598Uvv371dERIRiYmJUu3Ztj+3btm0zJZwk9evXz/3vDh06KCkpSc2bN9frr7+uunXrGjpmcHCwgoODzYoIAACqOUOFZ9CgQSbHqLzQ0FC1bt1a+/btU69evXT69GkVFxd7nOU5fPjwOef8AACAPyZDhWf69Olm56i0EydOaP/+/brtttuUmJio2rVra+3atRoyZIgkae/evcrPz3c//RkAAMDwgwelnycN7969W9LPt4774rUSDzzwgAYMGKDmzZvr0KFDmj59umrVqqXhw4fLbrdr1KhRSk9PV1hYmEJCQjR+/HglJyef9w4tAADwx2Oo8Bw5ckTDhg3TRx995L6UVFxcrB49emjp0qW66KKLTAv43Xffafjw4Tp27JguuugiXXvttdq0aZP7O5566ikFBARoyJAhcjqd6tOnj5577jnTvh8AANR8NpfL5arqh4YOHapvvvlGWVlZatu2rSTpq6++Umpqqlq2bKlXX33V9KC+5HA4ZLfbVVJSUuPf9p44KcvfEQAANUTunJH+juCVqvz9NnSGZ9WqVVqzZo277EjSZZddpgULFqh3795GDgkAAOAzhp7DU15eXuFWdEmqXbu2ysvLvQ4FAABgJkOF57rrrtN9992nQ4cOuce+//57paWlqWfPnqaFAwAAMIOhwjN//nw5HA7FxMQoLi5OcXFxio2NlcPh0LPPPmt2RgAAAK8YmsMTHR2tbdu2ac2aNdqzZ48kqW3bth7vtAIAAKguDD+Hx2azqVevXurVq5eZeQAAAExXpUta69at02WXXSaHw1FhW0lJiS6//HJt3LjRtHAAAABmqFLhmTdvnkaPHn3Oe93tdrvuuecezZ0717RwAAAAZqhS4dmxY4f69u173u29e/dWbm6u16EAAADMVKXCc/jw4XM+f+cXgYGBOnr0qNehAAAAzFSlwnPxxRdr165d592+c+dONW3a1OtQ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\n"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "consumo = df[df[\"total_litres_of_pure_alcohol\"] >=7]"
+      ],
+      "metadata": {
+        "id": "-LFyAsm3GP3A"
+      },
+      "execution_count": 28,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "consumo.head"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "J-aWPz2BGz50",
+        "outputId": "6516f471-94aa-4d0e-fed2-3216f3cc3f57"
+      },
+      "execution_count": 29,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<bound method NDFrame.head of                 country  beer_servings  spirit_servings  wine_servings  \\\n",
+              "3               Andorra            245              138            312   \n",
+              "6             Argentina            193               25            221   \n",
+              "8             Australia            261               72            212   \n",
+              "9               Austria            279               75            191   \n",
+              "15              Belarus            142              373             42   \n",
+              "16              Belgium            295               84            212   \n",
+              "23               Brazil            245              145             16   \n",
+              "25             Bulgaria            231              252             94   \n",
+              "32               Canada            240              122            100   \n",
+              "35                Chile            130              124            172   \n",
+              "42              Croatia            230               87            254   \n",
+              "44               Cyprus            192              154            113   \n",
+              "45       Czech Republic            361              170            134   \n",
+              "48              Denmark            224               81            278   \n",
+              "57              Estonia            224              194             59   \n",
+              "60              Finland            263              133             97   \n",
+              "61               France            127              151            370   \n",
+              "62                Gabon            347               98             59   \n",
+              "65              Germany            346              117            175   \n",
+              "67               Greece            133              112            218   \n",
+              "68              Grenada            199              438             28   \n",
+              "72               Guyana             93              302              1   \n",
+              "75              Hungary            234              215            185   \n",
+              "81              Ireland            313              118            165   \n",
+              "85                Japan             77              202             16   \n",
+              "93               Latvia            281              216             62   \n",
+              "98            Lithuania            343              244             56   \n",
+              "99           Luxembourg            236              133            271   \n",
+              "120         Netherlands            251               88            190   \n",
+              "121         New Zealand            203               79            175   \n",
+              "124             Nigeria             42                5              2   \n",
+              "125                Niue            188              200              7   \n",
+              "130              Panama            285              104             18   \n",
+              "132            Paraguay            213              117             74   \n",
+              "135              Poland            343              215             56   \n",
+              "136            Portugal            194               67            339   \n",
+              "138         South Korea            140               16              9   \n",
+              "140             Romania            297              122            167   \n",
+              "141  Russian Federation            247              326             73   \n",
+              "143   St. Kitts & Nevis            194              205             32   \n",
+              "144           St. Lucia            171              315             71   \n",
+              "151              Serbia            283              131            127   \n",
+              "155            Slovakia            196              293            116   \n",
+              "156            Slovenia            270               51            276   \n",
+              "159        South Africa            225               76             81   \n",
+              "160               Spain            284              157            112   \n",
+              "165              Sweden            152               60            186   \n",
+              "166         Switzerland            185              100            280   \n",
+              "179              Uganda             45                9              0   \n",
+              "180             Ukraine            206              237             45   \n",
+              "182      United Kingdom            219              126            195   \n",
+              "184                 USA            249              158             84   \n",
+              "188           Venezuela            333              100              3   \n",
+              "\n",
+              "     total_litres_of_pure_alcohol  \n",
+              "3                            12.4  \n",
+              "6                             8.3  \n",
+              "8                            10.4  \n",
+              "9                             9.7  \n",
+              "15                           14.4  \n",
+              "16                           10.5  \n",
+              "23                            7.2  \n",
+              "25                           10.3  \n",
+              "32                            8.2  \n",
+              "35                            7.6  \n",
+              "42                           10.2  \n",
+              "44                            8.2  \n",
+              "45                           11.8  \n",
+              "48                           10.4  \n",
+              "57                            9.5  \n",
+              "60                           10.0  \n",
+              "61                           11.8  \n",
+              "62                            8.9  \n",
+              "65                           11.3  \n",
+              "67                            8.3  \n",
+              "68                           11.9  \n",
+              "72                            7.1  \n",
+              "75                           11.3  \n",
+              "81                           11.4  \n",
+              "85                            7.0  \n",
+              "93                           10.5  \n",
+              "98                           12.9  \n",
+              "99                           11.4  \n",
+              "120                           9.4  \n",
+              "121                           9.3  \n",
+              "124                           9.1  \n",
+              "125                           7.0  \n",
+              "130                           7.2  \n",
+              "132                           7.3  \n",
+              "135                          10.9  \n",
+              "136                          11.0  \n",
+              "138                           9.8  \n",
+              "140                          10.4  \n",
+              "141                          11.5  \n",
+              "143                           7.7  \n",
+              "144                          10.1  \n",
+              "151                           9.6  \n",
+              "155                          11.4  \n",
+              "156                          10.6  \n",
+              "159                           8.2  \n",
+              "160                          10.0  \n",
+              "165                           7.2  \n",
+              "166                          10.2  \n",
+              "179                           8.3  \n",
+              "180                           8.9  \n",
+              "182                          10.4  \n",
+              "184                           8.7  \n",
+              "188                           7.7  >"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 29
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "consumo.head(10)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 363
+        },
+        "id": "qSAgNpBWHCaw",
+        "outputId": "d289dc8f-ec2c-4d37-e27f-7ad270b60ff2"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "      country  beer_servings  spirit_servings  wine_servings  \\\n",
+              "3     Andorra            245              138            312   \n",
+              "6   Argentina            193               25            221   \n",
+              "8   Australia            261               72            212   \n",
+              "9     Austria            279               75            191   \n",
+              "15    Belarus            142              373             42   \n",
+              "16    Belgium            295               84            212   \n",
+              "23     Brazil            245              145             16   \n",
+              "25   Bulgaria            231              252             94   \n",
+              "32     Canada            240              122            100   \n",
+              "35      Chile            130              124            172   \n",
+              "\n",
+              "    total_litres_of_pure_alcohol  \n",
+              "3                           12.4  \n",
+              "6                            8.3  \n",
+              "8                           10.4  \n",
+              "9                            9.7  \n",
+              "15                          14.4  \n",
+              "16                          10.5  \n",
+              "23                           7.2  \n",
+              "25                          10.3  \n",
+              "32                           8.2  \n",
+              "35                           7.6  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-249a0b04-6751-4bb1-9ea7-91626fc0d774\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>country</th>\n",
+              "      <th>beer_servings</th>\n",
+              "      <th>spirit_servings</th>\n",
+              "      <th>wine_servings</th>\n",
+              "      <th>total_litres_of_pure_alcohol</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Andorra</td>\n",
+              "      <td>245</td>\n",
+              "      <td>138</td>\n",
+              "      <td>312</td>\n",
+              "      <td>12.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>Argentina</td>\n",
+              "      <td>193</td>\n",
+              "      <td>25</td>\n",
+              "      <td>221</td>\n",
+              "      <td>8.3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>Australia</td>\n",
+              "      <td>261</td>\n",
+              "      <td>72</td>\n",
+              "      <td>212</td>\n",
+              "      <td>10.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>Austria</td>\n",
+              "      <td>279</td>\n",
+              "      <td>75</td>\n",
+              "      <td>191</td>\n",
+              "      <td>9.7</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>15</th>\n",
+              "      <td>Belarus</td>\n",
+              "      <td>142</td>\n",
+              "      <td>373</td>\n",
+              "      <td>42</td>\n",
+              "      <td>14.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>16</th>\n",
+              "      <td>Belgium</td>\n",
+              "      <td>295</td>\n",
+              "      <td>84</td>\n",
+              "      <td>212</td>\n",
+              "      <td>10.5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>23</th>\n",
+              "      <td>Brazil</td>\n",
+              "      <td>245</td>\n",
+              "      <td>145</td>\n",
+              "      <td>16</td>\n",
+              "      <td>7.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25</th>\n",
+              "      <td>Bulgaria</td>\n",
+              "      <td>231</td>\n",
+              "      <td>252</td>\n",
+              "      <td>94</td>\n",
+              "      <td>10.3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>32</th>\n",
+              "      <td>Canada</td>\n",
+              "      <td>240</td>\n",
+              "      <td>122</td>\n",
+              "      <td>100</td>\n",
+              "      <td>8.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>35</th>\n",
+              "      <td>Chile</td>\n",
+              "      <td>130</td>\n",
+              "      <td>124</td>\n",
+              "      <td>172</td>\n",
+              "      <td>7.6</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-249a0b04-6751-4bb1-9ea7-91626fc0d774')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-249a0b04-6751-4bb1-9ea7-91626fc0d774 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-249a0b04-6751-4bb1-9ea7-91626fc0d774');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ]
+          },
+          "metadata": {},
+          "execution_count": 30
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#criar gráfico com nosso subset consumo\n",
+        "sns.countplot(consumo['total_litres_of_pure_alcohol'])\n",
+        "plt.ylabel('Porcentagem de consumo')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 502
+        },
+        "id": "r68iNMUlHJzs",
+        "outputId": "de2cd4d5-b616-466d-901d-d702ebc8a96f"
+      },
+      "execution_count": 36,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "KeyError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/pandas/core/indexes/base.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method, tolerance)\u001b[0m\n\u001b[1;32m   3801\u001b[0m             \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 3802\u001b[0;31m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcasted_key\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   3803\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mKeyError\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/pandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/pandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/hashtable_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.hashtable.Int64HashTable.get_item\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;32mpandas/_libs/hashtable_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.hashtable.Int64HashTable.get_item\u001b[0;34m()\u001b[0m\n",
+            "\u001b[0;31mKeyError\u001b[0m: 0",
+            "\nThe above exception was the direct cause of the following exception:\n",
+            "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-36-17bb3aac0dd9>\u001b[0m in \u001b[0;36m<cell line: 2>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m#criar gráfico com nosso subset consumo\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0msns\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcountplot\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mconsumo\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'total_litres_of_pure_alcohol'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m \u001b[0mplt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mylabel\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Porcentagem de consumo'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/seaborn/categorical.py\u001b[0m in \u001b[0;36mcountplot\u001b[0;34m(data, x, y, hue, order, hue_order, orient, color, palette, saturation, width, dodge, ax, **kwargs)\u001b[0m\n\u001b[1;32m   2941\u001b[0m         \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Cannot pass values for both `x` and `y`\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2942\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2943\u001b[0;31m     plotter = _CountPlotter(\n\u001b[0m\u001b[1;32m   2944\u001b[0m         \u001b[0mx\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0my\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mhue\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdata\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0morder\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mhue_order\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2945\u001b[0m         \u001b[0mestimator\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0merrorbar\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mn_boot\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0munits\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mseed\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/seaborn/categorical.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, x, y, hue, data, order, hue_order, estimator, errorbar, n_boot, units, seed, orient, color, palette, saturation, width, errcolor, errwidth, capsize, dodge)\u001b[0m\n\u001b[1;32m   1528\u001b[0m                  errcolor, errwidth, capsize, dodge):\n\u001b[1;32m   1529\u001b[0m         \u001b[0;34m\"\"\"Initialize the plotter.\"\"\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1530\u001b[0;31m         self.establish_variables(x, y, hue, data, orient,\n\u001b[0m\u001b[1;32m   1531\u001b[0m                                  order, hue_order, units)\n\u001b[1;32m   1532\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mestablish_colors\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcolor\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpalette\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msaturation\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/seaborn/categorical.py\u001b[0m in \u001b[0;36mestablish_variables\u001b[0;34m(self, x, y, hue, data, orient, order, hue_order, units)\u001b[0m\n\u001b[1;32m    484\u001b[0m                 \u001b[0;32mif\u001b[0m \u001b[0mhasattr\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mdata\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m\"shape\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    485\u001b[0m                     \u001b[0;32mif\u001b[0m \u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mdata\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mshape\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 486\u001b[0;31m                         \u001b[0;32mif\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0misscalar\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mdata\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    487\u001b[0m                             \u001b[0mplot_data\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mdata\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    488\u001b[0m                         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/pandas/core/series.py\u001b[0m in \u001b[0;36m__getitem__\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m    979\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    980\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mkey_is_scalar\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 981\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_value\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    982\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    983\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mis_hashable\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/pandas/core/series.py\u001b[0m in \u001b[0;36m_get_value\u001b[0;34m(self, label, takeable)\u001b[0m\n\u001b[1;32m   1087\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1088\u001b[0m         \u001b[0;31m# Similar to Index.get_value, but we do not fall back to positional\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1089\u001b[0;31m         \u001b[0mloc\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mindex\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlabel\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1090\u001b[0m         \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mindex\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_values_for_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mloc\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mlabel\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1091\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.10/dist-packages/pandas/core/indexes/base.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method, tolerance)\u001b[0m\n\u001b[1;32m   3802\u001b[0m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcasted_key\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   3803\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mKeyError\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 3804\u001b[0;31m                 \u001b[0;32mraise\u001b[0m \u001b[0mKeyError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   3805\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mTypeError\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   3806\u001b[0m                 \u001b[0;31m# If we have a listlike key, _check_indexing_error will raise\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mKeyError\u001b[0m: 0"
+          ]
+        }
+      ]
+    }
+  ]
+}
